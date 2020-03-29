@@ -1,3 +1,7 @@
+
+# Github page: 
+https://abhijitmehta.github.io/plugin-flex-virtual-queue/
+
 # setup
 
 - setup the contact us page and related twilio function 
