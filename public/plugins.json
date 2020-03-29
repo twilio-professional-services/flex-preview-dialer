@@ -1,0 +1,13 @@
+[
+  {
+    "name": "plugin-flex-virtual-queue",
+    "version": "0.0.0",
+    "class": "FlexVirtualQueuePlugin",
+    "requires": [
+      {
+        "@twilio/flex-ui": "^1"
+      }
+    ],
+    "src": "http://localhost:3000/plugin-flex-virtual-queue.js"
+  }
+]
