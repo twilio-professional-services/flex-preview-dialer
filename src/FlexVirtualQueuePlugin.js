@@ -28,7 +28,7 @@ export default class FlexVirtualQueuePlugin extends FlexPlugin {
       .Content
       .add(<CustomTaskListContainer key="demo-component" />, options);
 
-      flex.Actions.addListener("beforeAcceptTask", (payload, abortFunction) => {
+      flex.Actions.addListener("afterAcceptTask", (payload, abortFunction) => {
 
         if(payload.task.attributes.type === 'virtual_queue_14573869'){
 
@@ -36,7 +36,9 @@ export default class FlexVirtualQueuePlugin extends FlexPlugin {
             destination: payload.task.attributes.to
           });
         }
- 
+        
+        flex.Actions.invokeAction("CompleteTask", { sid: payload.task.sid });
+
     });
 
   }
