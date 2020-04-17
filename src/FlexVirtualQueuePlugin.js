@@ -1,9 +1,6 @@
-import React from "react";
-import { VERSION } from "@twilio/flex-ui";
+import React from 'react';
 import { FlexPlugin } from "flex-plugin";
-
-import CustomTaskListContainer from "./components/CustomTaskList/CustomTaskList.Container";
-import reducers, { namespace } from "./states";
+import PreviewDialer from "./components/PreviewDialer/PreviewDialer";
 
 const PLUGIN_NAME = "FlexVirtualQueuePlugin";
 
@@ -20,39 +17,26 @@ export default class FlexVirtualQueuePlugin extends FlexPlugin {
    * @param manager { import('@twilio/flex-ui').Manager }
    */
   init(flex, manager) {
-    this.registerReducers(manager);
 
-    const options = { sortOrder: -1 };
-    flex.AgentDesktopView.Panel1.Content.add(
-      <CustomTaskListContainer key="demo-component" />,
-      options
-    );
+    flex.OutboundDialerPanel.Content.add(<PreviewDialer key="preview-dialpad" flex={flex} manager={manager} />)
 
     flex.Actions.addListener("afterAcceptTask", (payload, abortFunction) => {
-      if (payload.task.attributes.type === "virtual_queue_14573869") {
+      
+      const { type, destination } = payload.task.attributes;
+
+      if (type === "preview-dialer") {
+
         flex.Actions.invokeAction("StartOutboundCall", {
-          destination: payload.task.attributes.to
+          destination
         });
+
+        flex.Actions.invokeAction("CompleteTask", { sid: payload.task.sid });
+        
       }
 
-      flex.Actions.invokeAction("CompleteTask", { sid: payload.task.sid });
+      
     });
+
   }
 
-  /**
-   * Registers the plugin reducers
-   *
-   * @param manager { Flex.Manager }
-   */
-  registerReducers(manager) {
-    if (!manager.store.addReducer) {
-      // eslint: disable-next-line
-      console.error(
-        `You need FlexUI > 1.9.0 to use built-in redux; you are currently on ${VERSION}`
-      );
-      return;
-    }
-
-    manager.store.addReducer(namespace, reducers);
-  }
 }

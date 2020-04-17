@@ -22,8 +22,11 @@
     "craco-config-flex-plugin": "^3.6.1",
     "flex-plugin": "^3.5.0",
     "flex-plugin-scripts": "^3.5.0",
+    "moment": "^2.24.0",
     "react": "16.5.2",
+    "react-csv-reader": "^3.0.5",
     "react-dom": "16.5.2",
+    "react-input-mask": "^2.0.4",
     "react-scripts": "3.4.1"
   },
   "devDependencies": {
