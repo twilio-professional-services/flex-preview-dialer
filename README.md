@@ -1,6 +1,6 @@
 # Flex Preview Dialer Plugin
 
-This plugin is meant to be a Preview Dialer that receives a CSV file and send tasks to agents right away or in a period of time previously scheduled. When the task is accepted by the agent, the outbound call is done automatically.   
+This plugin is meant to be a Preview Dialer that receives a CSV file and send tasks to agents right away or in a period of time previously scheduled. When the task is accepted by the agent, the outbound call is made automatically.   
 
 ## Flex plugin
 
@@ -12,7 +12,11 @@ This plugin uses Twilio Functions and the startOutboundCall action to send tasks
 
 ### Call now
 
+Using the *call now* button, the preview dialer tasks will be created for each contact on the list. Using TaskRouter, these tasks will be sent to available workers accordingly to their capacity on the Preview Dialer channel (more on that in the configuration section). 
+
 ### Schedule
+
+Using the *schedule* button, you are able to set the days on the week and the interval of time that the calls can be made. Therefore, the preview dialer tasks will be created for each contact on the list but now with the schedule information. Using TaskRouter, these tasks will be sent to available workers accordingly to the schedule and their capacity on the Preview Dialer channel.
 
 # Configuration
 
@@ -27,8 +31,6 @@ Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmj
 Afterwards, install the dependencies by running `npm install`:
 
 ```bash
-cd 
-
 # If you use npm
 npm install
 ```
@@ -67,6 +69,8 @@ Note: Common packages like `React`, `ReactDOM`, `Redux` and `ReactRedux` are not
 
 Before using this plugin you must first create a dedicated TaskRouter workflow or just add the following filter to your current workflow. Make sure it is part of your Flex Task Assignment workspace.
 
+<img width="700px" src="screenshots/preview-dialer-filter.png"/>
+
 ## Twilio Serverless 
 
 You will need the [Twilio CLI](https://www.twilio.com/docs/twilio-cli/quickstart) and the [serverless plugin](https://www.twilio.com/docs/labs/serverless-toolkit/getting-started) to deploy the functions inside the ```serverless``` folder of this project. You can install the necessary dependencies with the following commands:
@@ -88,6 +92,26 @@ and then
 - account SID
 - Inside attributes: 
     - serviceBaseUrl: your Twilio Functions base url (this will be available after you deploy your functions). In local development environment, it could be your localhost base url.
+    - campaigns: array of campaigns available to the preview dialer. The format should be as the following example (where the second campaign has a default schedule):
+    
+    ```
+        campaigns: [
+          { 
+            name: "Default", 
+          },
+          { 
+            name: "Collections", 
+            schedule: { 
+              week: ["Mon", "Wed"],
+              startHour: "0100",
+              endHour: "2200"
+            } 
+          },
+          { 
+            name: "Leads", 
+          }
+        ]
+    ```
 
   **Note**: when deploying this plugin, you need to send these variables through the UI Configuration API as following. If you need more information about it, please refer to this [documentation](https://www.twilio.com/docs/flex/ui-configuration-customization):
 
@@ -97,7 +121,8 @@ and then
     -d '{
         "account_sid": "ACxx",
         "attributes": {
-            "serviceBaseUrl": "<value>"
+            "serviceBaseUrl": "<value>",
+            "campaigns": <array> 
         }
     }'
   ```
