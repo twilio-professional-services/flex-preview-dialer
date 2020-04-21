@@ -26,7 +26,7 @@ This repository is a Flex plugin with some other assets. The following describin
 
 ### Setup
 
-Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmjs.com) installed.
+Make sure you have [Node.js version 8.0.0 or later](https://nodejs.org) as well as [`npm version 5.0.0 or later`](https://npmjs.com) installed.
 
 Afterwards, install the dependencies by running `npm install`:
 
@@ -34,6 +34,8 @@ Afterwards, install the dependencies by running `npm install`:
 # If you use npm
 npm install
 ```
+
+Move the contents of `public/appConfig.sample.js` to `public/appConfig.js` and update the variable, `accountSid` with the account SID for your Flex project. 
 
 ### Development
 
@@ -67,9 +69,37 @@ Note: Common packages like `React`, `ReactDOM`, `Redux` and `ReactRedux` are not
 
 ## TaskRouter
 
-Before using this plugin you must first create a dedicated TaskRouter workflow or just add the following filter to your current workflow. Make sure it is part of your Flex Task Assignment workspace.
+Before using this plugin, you must first create a dedicated TaskRouter workflow or just add the following filter to your current workflow. Make sure it is part of your Flex Task Assignment workspace.
 
-<img width="700px" src="screenshots/preview-dialer-filter.png"/>
+### Edit with UI
+
+When adding a new workflow, pick a descriptive workflow name. If you're updating an existing workflow, update the following fields:
+
+Matching Tasks: type = "preview-dialer"
+Expression: (taskrouter.dayOfWeek IN task.schedule.week) AND (taskrouter.currentTime > task.schedule.startHour) AND (taskrouter.currentTime < task.schedule.endHour)
+
+The resulting JSON should look like this:
+
+```json
+{
+  "task_routing": {
+    "filters": [
+      {
+        "expression": "type = \"preview-dialer\"",
+        "targets": [
+          {
+            "queue": "WQxxxxxx",
+            "expression": "(taskrouter.dayOfWeek IN task.schedule.week) AND (taskrouter.currentTime > task.schedule.startHour) AND (taskrouter.currentTime < task.schedule.endHour)"
+          }
+        ]
+      }
+    ],
+    "default_filter": {
+      "queue": "WQxxxx" 
+    }
+  }
+}
+
 
 ## Twilio Serverless 
 

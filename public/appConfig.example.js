@@ -1,4 +1,4 @@
-// your account sid
+// Replace with your account sid
 var accountSid = 'accountSid';
 
 // set to /plugins.json for local dev
