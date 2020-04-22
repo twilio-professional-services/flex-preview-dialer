@@ -5,7 +5,7 @@
   "scripts": {
     "bootstrap": "flex-plugin check-start",
     "prebuild": "rimraf build && npm run bootstrap",
-    "build": "flex-plugin build",
+    "build": "./node_modules/.bin/env-cmd -f .env.production flex-plugin build",
     "clear": "flex-plugin clear",
     "predeploy": "npm run build",
     "deploy": "flex-plugin deploy",
@@ -15,11 +15,12 @@
     "list": "flex-plugin list",
     "remove": "flex-plugin remove",
     "prestart": "npm run bootstrap",
-    "start": "flex-plugin start",
+    "start": "./node_modules/.bin/env-cmd -f .env.development flex-plugin start",
     "test": "flex-plugin test --env=jsdom"
   },
   "dependencies": {
     "craco-config-flex-plugin": "^3.6.1",
+    "env-cmd": "^10.1.0",
     "flex-plugin": "^3.5.0",
     "flex-plugin-scripts": "^3.5.0",
     "moment": "^2.24.0",
