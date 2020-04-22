@@ -1,28 +1,28 @@
 # Flex Preview Dialer Plugin
 
-This plugin is meant to be a Preview Dialer that receives a CSV file and send tasks to agents right away or in a period of time previously scheduled. When the task is accepted by the agent, the outbound call is made automatically.   
+The Preview Dialer for Outbound Campaigns is a plugin that receives a CSV file and programmatically routes an outbound call assignment to available agents in your predefined outbound campaign queue. When the outbound call task is accepted by an agent, the system automatically launches the outbound call and connects it with the agent who accepted the task.
 
 ## Flex plugin
 
-A Twilio Flex Plugin allow you to customize the appearance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
+A Twilio Flex Plugin allows you to customize the appearance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
 
 ## How it works
 
-This plugin uses Twilio Functions and the startOutboundCall action to send tasks to agents representing a call that needs to be made. When the task is accepted, the outbound call is automatically connected to the agent. 
+This plugin uses Twilio Functions and the [`startOutboundCall` action](https://www.twilio.com/docs/flex/ui/actions#voice) to send outbound call tasks to available agents in a predefined queue. When the task is accepted, the outbound call is automatically connected to the agent. 
 
 ### Call now
 
-Using the *call now* button, the preview dialer tasks will be created for each contact on the list. Using TaskRouter, these tasks will be sent to available workers accordingly to their capacity on the Preview Dialer channel (more on that in the configuration section). 
+Using the *call now* button, the preview dialer tasks will be created for each contact on the list. Using TaskRouter, these tasks will be sent to available agents according to their capacity on the Preview Dialer channel. See [Task Channel Resource](https://www.twilio.com/docs/taskrouter/api/task-channel) to learn more about configuring task channels.
 
 ### Schedule
 
-Using the *schedule* button, you are able to set the days on the week and the interval of time that the calls can be made. Therefore, the preview dialer tasks will be created for each contact on the list but now with the schedule information. Using TaskRouter, these tasks will be sent to available workers accordingly to the schedule and their capacity on the Preview Dialer channel.
+Using the *schedule* button, you can set day and time intervals for the outbound calls. Therefore, the preview dialer tasks will be created for each contact on the list but now with the schedule information. Using TaskRouter, these tasks will be sent to available workers according to the defined schedule and their capacity on the Preview Dialer channel.
 
 # Configuration
 
 ## Flex Plugin
 
-This repository is a Flex plugin with some other assets. The following describing how you setup, develop and deploy your Flex plugin.
+This repository is a Flex plugin with some other assets. The following describes how you set up, develop, and deploy your Flex plugin.
 
 ### Setup
 
@@ -99,7 +99,7 @@ The resulting JSON should look like this:
     }
   }
 }
-
+```
 
 ## Twilio Serverless 
 
@@ -143,7 +143,7 @@ and then
         ]
     ```
 
-  **Note**: when deploying this plugin, you need to send these variables through the UI Configuration API as following. If you need more information about it, please refer to this [documentation](https://www.twilio.com/docs/flex/ui-configuration-customization):
+  **Note**: When deploying this plugin, you need to send these variables through the Configuration API as follows:
 
   ```
   curl https://flex-api.twilio.com/v1/Configuration -X POST -u ACxx:auth_token \
@@ -156,11 +156,12 @@ and then
         }
     }'
   ```
+   If you need more information about modifying the UI, please refer to this [documentation](https://www.twilio.com/docs/flex/ui-configuration-customization):
 
 4.  run `npm install`
 
-5. copy ./serverless/.env.sample to ./serverless/.env and populate the appropriate environment variables.
+5. copy `./serverless/.env.sample` to `./serverless/.env` and populate the appropriate environment variables.
 
-6.  cd into ./serverless/ then run `npm install` and then `twilio serverless:deploy` (optionally you can run locally with `twilio serverless:start --ngrok=""`
+6.  cd into `./serverless/` then run `npm install` and then `twilio serverless:deploy` (optionally you can run locally with `twilio serverless:start --ngrok=""`
 
-8. cd back to the root folder and run `npm start` to run locally or `npm run-script build` and deploy the generated ./build/plugin-dialpad.js to [twilio assests](https://www.twilio.com/console/assets/public) to include plugin with hosted Flex
+8. cd back to the root folder and run `npm start` to run locally or `npm run-script build` and deploy the generated ./build/plugin-dialpad.js to [Twilio Assets](https://www.twilio.com/console/assets/public) to include plugin with hosted Flex
