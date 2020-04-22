@@ -2,9 +2,9 @@ import React from 'react';
 import { FlexPlugin } from "flex-plugin";
 import PreviewDialer from "./components/PreviewDialer/PreviewDialer";
 
-const PLUGIN_NAME = "FlexVirtualQueuePlugin";
+const PLUGIN_NAME = "FlexPreviewDialer";
 
-export default class FlexVirtualQueuePlugin extends FlexPlugin {
+export default class FlexPreviewDialer extends FlexPlugin {
   constructor() {
     super(PLUGIN_NAME);
   }

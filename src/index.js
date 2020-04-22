@@ -1,4 +1,4 @@
 import * as FlexPlugin from 'flex-plugin';
-import FlexVirtualQueuePlugin from './FlexVirtualQueuePlugin';
+import FlexPreviewDialer from './FlexPreviewDialer';
 
-FlexPlugin.loadPlugin(FlexVirtualQueuePlugin);
+FlexPlugin.loadPlugin(FlexPreviewDialer);
