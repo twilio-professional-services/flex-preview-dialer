@@ -87,50 +87,18 @@ and then
 
 2. Clone this repository
 
-3. Copy ./public/appConfig.example.js to ./public/appConfig.js and set the following:
+3. Copy .env.example to .env.development and to .env.production and set the following variables:
 
-- account SID
-- Inside attributes: 
-    - serviceBaseUrl: your Twilio Functions base url (this will be available after you deploy your functions). In local development environment, it could be your localhost base url.
-    - campaigns: array of campaigns available to the preview dialer. The format should be as the following example (where the second campaign has a default schedule):
-    
-    ```
-        campaigns: [
-          { 
-            name: "Default", 
-          },
-          { 
-            name: "Collections", 
-            schedule: { 
-              week: ["Mon", "Wed"],
-              startHour: "0100",
-              endHour: "2200"
-            } 
-          },
-          { 
-            name: "Leads", 
-          }
-        ]
-    ```
+    - REACT_APP_SERVICE_BASE_URL: your Twilio Functions base url (this will be available after you deploy your functions). In local development environment, it could be your localhost base url. 
 
-  **Note**: when deploying this plugin, you need to send these variables through the UI Configuration API as following. If you need more information about it, please refer to this [documentation](https://www.twilio.com/docs/flex/ui-configuration-customization):
+  **Note**: Remember that both .env.development and .env.production is for front-end use so do not add any type of key/secret variable to them. When developing, the .env.development is used while the .env.production is used when building and deploying the plugin. Also, just variables starting with the name *REACT_APP_* will work.
 
-  ```
-  curl https://flex-api.twilio.com/v1/Configuration -X POST -u ACxx:auth_token \
-    -H 'Content-Type: application/json' \
-    -d '{
-        "account_sid": "ACxx",
-        "attributes": {
-            "serviceBaseUrl": "<value>",
-            "campaigns": <array> 
-        }
-    }'
-  ```
+4. Copy src/configs/campaigns.example.json to src/configs/campaigns.json and set your campaigns.
 
-4.  run `npm install`
+5. run `npm install`
 
-5. copy ./serverless/.env.sample to ./serverless/.env and populate the appropriate environment variables.
+6. copy ./serverless/.env.sample to ./serverless/.env and populate the appropriate environment variables.
 
-6.  cd into ./serverless/ then run `npm install` and then `twilio serverless:deploy` (optionally you can run locally with `twilio serverless:start --ngrok=""`
+7.  cd into ./serverless/ then run `npm install` and then `twilio serverless:deploy` (optionally you can run locally with `twilio serverless:start --ngrok=""`
 
 8. cd back to the root folder and run `npm start` to run locally or `npm run-script build` and deploy the generated ./build/plugin-dialpad.js to [twilio assests](https://www.twilio.com/console/assets/public) to include plugin with hosted Flex
