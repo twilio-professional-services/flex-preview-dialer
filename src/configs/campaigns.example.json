@@ -1,0 +1,18 @@
+{
+    "campaigns": [
+        { 
+            "name": "Default"
+        },
+        { 
+            "name": "Collections", 
+            "schedule": { 
+                "week": ["Mon", "Wed"],
+                "startHour": "0100",
+                "endHour": "2200"
+            } 
+        },
+        { 
+            "name": "Leads"
+        }
+    ]
+}
