@@ -76,8 +76,8 @@ class ScheduleDialog extends React.Component {
             campaign: this.props.campaign.name,
             schedule: JSON.stringify({
                 week: this.state.selected.filter(elem => elem !== "All"),
-                startHour: this.state.startHour,
-                endHour: this.state.endHour
+                startHour: (this.state.startHour).replace(":", ""),
+                endHour: (this.state.endHour).replace(":", "")
             })  
         });
         this.props.onClose();
