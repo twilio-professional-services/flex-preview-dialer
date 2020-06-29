@@ -1,6 +1,6 @@
 # Flex Preview Dialer Plugin
 
-The Flex Preview Dialer Plugin  includes the capability to upload a contacts list and programmatically generate a preview dialing task for each contact. Alongside the CSV upload, you can schedule outbound campaigns based on a JSON file and generate preview tasks for your agents immediately or at a specified later time and day.
+The Flex Preview Dialer Plugin includes the capability to upload a contacts list and programmatically generate a preview dialing task for each contact. Alongside the CSV upload, you can schedule outbound campaigns based on a JSON file and generate preview tasks for your agents immediately or at a specified later time and day.
 
 The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/docs/runtime) and the [Actions Framework StartOutboundCall action](https://assets.flex.twilio.com/releases/flex-ui/1.18.0/docs/Actions.html#.StartOutboundCall) to send preview dialing tasks to available agents representing a call that needs to be made. When an agent accepts a preview task, the system-initiated outbound call (represented as a voice task) is automatically connected to _that_ agent. This plugin customizes the Flex UI to include the following components:
 
@@ -32,11 +32,15 @@ To deploy this plugin, you will need:
 
 ### TaskRouter
 
-Before using this plugin, you must first create the following changes to your Flex Task Assignment workspace.
+Before using this plugin, you must first add the following to your Flex Task Assignment workspace:
 - A [task channel](https://www.twilio.com/docs/taskrouter/api/task-channel) for your preview dialing tasks
 - A workflow filter to a dedicated workflow, or an additional filter to your current workflow. 
 
 <img width="700px" src="screenshots/preview-dialer-filter.png"/>
+
+### Prerequisite Function
+
+There is a single function located in the `serverless` directory that you are expected to implement in the [Twilio Functions Runtime](https://www.twilio.com/docs/runtime), or to replicate in your own backend application.
 
 ### Required npm package for your Function environment
 
@@ -50,7 +54,7 @@ This plugin will send the Flex user's token along with the task information to t
 
 ## Setup
 
-Make sure you have [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed. 
+Make sure you have [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed. Copy `public/appConfig.example.js` to `public/appConfig.js`.
 
 Afterwards, install the dependencies by running `npm install`:
 
@@ -97,39 +101,41 @@ Afterwards, you'll find in your project a `build` folder that contains a file wi
 
 2. Clone this repository.
 
-3. Rename `src/configs/campaigns.example.json` to `src/configs/campaigns.json` and set your campaigns.
+3. Copy `public/appConfig.example.js` to `public/appConfig.js`.
+
+4. Copy `src/configs/campaigns.example.json` to `src/configs/campaigns.json` and set your campaigns.
 
 5. Run `npm install`.
 
-6. Rename `./serverless/.env.example` to `./serverless/.env` and populate the appropriate environment variables.
+6. Copy `./serverless/.env.example` to `./serverless/.env` and populate the appropriate environment variables.
 
-7.  Change into `./serverless/` then run `npm install` and then `twilio serverless:deploy`. Optionally, you can run locally with `twilio serverless:start --ngrok=""`
+7.  Change into `./serverless/` then run `twilio serverless:deploy`. Optionally, you can run locally with `twilio serverless:start --ngrok=""`
 
 8. Copy and save the domain returned when you deploy a function.
 
-9. From the root directory, rename .env.example to .env.production. 
+9. From the root directory, copy `.env.example` to `.env.production`. 
 
-10. Open the .env.production file in a text editor of your choice. Modify the REACT_APP_SERVICE_BASE_URL property to the Domain name you copied previously. Make sure to prefix it with "https://".
+10. Open the `.env.production` file in a text editor of your choice. Modify the `REACT_APP_SERVICE_BASE_URL` property to the Domain name you copied previously. Make sure to prefix it with "https://".
 
 11. Run `twilio flex:plugins:deploy` to deploy the plugin.
 
 The Flex Preview Dialer Plugin is now active on your contact center!
 
 ## Testing the plugin
-1. Log in as an `admin` to the Flex instance where you deployed the plugin.
-2. Change your status to Available on the upper right corner of the Flex UI. This enables you to receive incoming calls and messages (SMS or chat).
+1. Log in to the Flex instance where you deployed the plugin.
+2. Change your status to "Available" on the upper right corner of the Flex UI. This enables you to receive incoming calls and messages (SMS or chat).
 3. With your specific campaign selected from the Campaigns dropdown list, import a CSV file of Contacts. You can have two columns: Contact Name, and Destination (Phone Number). For example:
 
 | Full Name | Destination Number |
 |-----------|--------------------|
 |Alice Cooper| 2065556666 |
 
-4. To generate a preview task (which you can review by running `twilio api:taskrouter:v1:workspaces:tasks:list --workspace-sid <flex_task-assignment_sid>` in a command shell) for each contact in the list:
+4. To generate a preview task for each contact in the list:
   - Click "Call Now" to generate preview tasks for your campaign immediately.
   - Click "Schedule" to set up scheduling for your selected campaign. When specifying a schedule, note that the TaskRouter API utilizes Coordinated Universal Time (UTC).
 5. To see the incoming preview tasks (displayed with the Campaign name and the phrase "Call to <destination_number_for_contact_row>", navigate to the Agent Desktop in your Flex Instance.
 
 6. Upon clicking "Accept", you should see a connecting call to the destination number (which has been added as an attribute on the subsequent "voice" task).
-**Tip:** You can review the "voice" tasks that get generated after acceptance of the preview task by rerunning `twilio api:taskrouter:v1:workspaces:tasks:list --workspace-sid <flex_task-assignment_sid>`.
+**Tip:**  Flex users with `admin` or `developer` permissions can review generated tasks within the Twilio Console (**Tasks** page on your **Flex Task Assignment** workspace) or by running `twilio api:taskrouter:v1:workspaces:tasks:list --workspace-sid <flex_task-assignment_sid>` `admin` or `developer` in a command shell.
 
 
