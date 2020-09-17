@@ -4,7 +4,10 @@ The Flex Preview Dialer Plugin includes the capability to upload a contacts list
 
 The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/docs/runtime) and the [Actions Framework StartOutboundCall action](https://assets.flex.twilio.com/releases/flex-ui/1.18.0/docs/Actions.html#.StartOutboundCall) to send preview dialing tasks to available agents representing a call that needs to be made. When an agent accepts a preview task, the system-initiated outbound call (represented as a voice task) is automatically connected to _that_ agent. This plugin customizes the Flex UI to include the following components:
 
-<img width="700px" src="screenshots/preview-dialer-ui.png"/>
+
+<p align="center">
+    <img src="screenshots/preview-dialer-ui.png?raw=true" width="400" >
+</p>
 
 - A dropdown list for your outbound campaigns, populated from campaigns.json
 - A CSV upload button, for uploading your contacts list
