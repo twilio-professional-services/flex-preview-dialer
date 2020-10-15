@@ -1,41 +1,29 @@
 {
   "name": "plugin-flex-preview-dialer",
-  "version": "0.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
-    "bootstrap": "flex-plugin check-start",
     "prebuild": "rimraf build && npm run bootstrap",
     "build": "./node_modules/.bin/env-cmd -f .env.production flex-plugin build",
-    "clear": "flex-plugin clear",
-    "predeploy": "npm run build",
-    "deploy": "flex-plugin deploy",
-    "eject": "flex-plugin eject",
-    "info": "flex-plugin info",
-    "postinstall": "npm run bootstrap",
-    "list": "flex-plugin list",
-    "remove": "flex-plugin remove",
+    "postinstall": "flex-plugin pre-script-check",
     "prestart": "npm run bootstrap",
-    "start": "./node_modules/.bin/env-cmd -f .env.development flex-plugin start",
-    "test": "flex-plugin test --env=jsdom"
+    "start": "./node_modules/.bin/env-cmd -f .env.development flex-plugin start"
   },
   "dependencies": {
-    "craco-config-flex-plugin": "^3.6.1",
     "env-cmd": "^10.1.0",
-    "flex-plugin": "^3.5.0",
-    "flex-plugin-scripts": "^3.5.0",
-    "moment": "^2.24.0",
+    "flex-plugin": "4.0.2-beta.0",
+    "moment": "^2.29.1",
     "react": "16.5.2",
-    "react-csv-reader": "^3.0.5",
+    "react-csv-reader": "^3.1.1",
     "react-dom": "16.5.2",
-    "react-input-mask": "^2.0.4",
-    "react-scripts": "3.4.1"
+    "react-input-mask": "^2.0.4"
   },
   "devDependencies": {
     "@twilio/flex-ui": "^1",
     "babel-polyfill": "^6.26.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "rimraf": "^3.0.0"
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "flex-plugin-scripts": "4.0.12-beta.0"
   },
   "browserslist": {
     "production": [
