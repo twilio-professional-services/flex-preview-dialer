@@ -1,9 +1,7 @@
 export const getAttributes = manager => {
-
-    const file = require("../configs/campaigns.json");
-
+   const file = require("../configs/campaigns.json");
     return {
-        serviceBaseUrl: process.env.REACT_APP_SERVICE_BASE_URL,
+        serviceBaseUrl: manager.serviceConfiguration.attributes.serviceBaseUrl,
         campaigns: file.campaigns || [ { name: "Default" } ]
     }
 }
