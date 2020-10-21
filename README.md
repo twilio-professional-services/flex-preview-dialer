@@ -130,12 +130,12 @@ curl -X GET 'https://flex-api.twilio.com/v1/Configuration' \
 curl -X POST 'https://flex-api.twilio.com/v1/Configuration' \
     -u ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:your_auth_token
     -H 'Content-Type: application/json' \
-    -d '{
-        "attributes": {
-            "serviceBaseUrl": "https://<function-domain>-twil.io",
-        ...old properties continued
-        }
-    }'
+    -d '{ 
+            "account_sid": "AC8c7a9b89e6917fbe077e941ec694400d",
+            "attributes": {
+                "serviceBaseUrl": "https://flex-preview-dialer-2110-dev.twil.io"
+            }
+        }'
 ```
 
 11. Run `twilio flex:plugins:deploy --major --changelog "Updating to use the latest Flex plugin for the Twilio CLI" --description "Preview Dialer for Outbound Campaigns plugin"
