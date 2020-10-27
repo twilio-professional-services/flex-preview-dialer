@@ -138,7 +138,7 @@ curl -X POST 'https://flex-api.twilio.com/v1/Configuration' \
         }'
 ```
 
-11. Run `twilio flex:plugins:deploy --major --changelog "Updating to use the latest Flex plugin for the Twilio CLI" --description "Preview Dialer for Outbound Campaigns plugin"
+11. Run `twilio flex:plugins:deploy --major --changelog "Updating to use the latest Flex plugin for the Twilio CLI" --description "Preview Dialer for Outbound Campaigns plugin"`
 
 To enable the plugin on your contact center, follow the suggested next step on the deployment confirmation. To enable it via the Flex UI, see the [Plugins Dashboard documentation](https://www.twilio.com/docs/flex/developer/plugins/dashboard#stage-plugin-changes).
 
