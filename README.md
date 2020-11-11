@@ -142,3 +142,5 @@ The Flex Preview Dialer Plugin is now active on your contact center!
 **Tip:**  Flex users with `admin` or `developer` permissions can review generated tasks within the Twilio Console (**Tasks** page on your **Flex Task Assignment** workspace) or by running `twilio api:taskrouter:v1:workspaces:tasks:list --workspace-sid <flex_task-assignment_sid>` `admin` or `developer` in a command shell.
 
 
+## Disclaimer
+This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Twilio bears no responsibility to support the use or implementation of this software.
