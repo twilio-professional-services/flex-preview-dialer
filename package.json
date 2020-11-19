@@ -1,40 +1,20 @@
 {
   "name": "plugin-flex-preview-dialer",
-  "version": "2.0.1",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
-    "prebuild": "rimraf build && npm run bootstrap",
-    "build": "./node_modules/.bin/env-cmd -f .env.production flex-plugin build",
-    "postinstall": "flex-plugin pre-script-check",
-    "prestart": "npm run bootstrap",
-    "start": "./node_modules/.bin/env-cmd -f .env.development flex-plugin start"
+    "postinstall": "flex-plugin pre-script-check"
   },
   "dependencies": {
     "env-cmd": "^10.1.0",
-    "flex-plugin": "4.0.2-beta.0",
     "moment": "^2.29.1",
     "react": "16.5.2",
     "react-csv-reader": "^3.1.1",
     "react-dom": "16.5.2",
-    "react-input-mask": "^2.0.4"
+    "react-input-mask": "^2.0.4",
+    "flex-plugin-scripts": "4.3.5-beta.0"
   },
   "devDependencies": {
-    "@twilio/flex-ui": "^1",
-    "babel-polyfill": "^6.26.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
-    "flex-plugin-scripts": "4.0.12-beta.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@twilio/flex-ui": "^1"
   }
 }
