@@ -4,7 +4,6 @@ The Flex Preview Dialer Plugin includes the capability to upload a contacts list
 
 The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/docs/runtime) and the [Actions Framework StartOutboundCall action](https://assets.flex.twilio.com/releases/flex-ui/1.18.0/docs/Actions.html#.StartOutboundCall) to send preview dialing tasks to available agents representing a call that needs to be made. When an agent accepts a preview task, Flex initiates an outbound call (represented as a voice task) and automatically connects it to _that_ same agent. This plugin customizes the Flex UI to include the following components:
 
-
 <p align="center">
     <img src="screenshots/preview-dialer-ui.png?raw=true" width="400" >
 </p>
@@ -101,7 +100,7 @@ Afterwards, you'll find in your project a `build` folder that contains a file wi
 
 ### Twilio Serverless Deployment
 
-1. Set up all dependencies above: the TaskRouter Task Channel, Workflow filter, and the Twilio CLI packages.
+1. Set up all dependencies above: the TaskRouter TaskChannel, Workflow filter, and the Twilio CLI packages.
 
 2. Clone this repository.
 
@@ -117,30 +116,15 @@ Afterwards, you'll find in your project a `build` folder that contains a file wi
 
 8. Copy and save the domain returned when you deploy a function.
 
-9. Next, update the `serviceBaseUrl` attribute of your Flex configuration. To do so, first retrieve the Flex Configuration for your account:
+9. From the root directory, copy `.env.example` to `.env`. 
 
-**Retrieve Flex Configuration**
-```
-curl -X GET 'https://flex-api.twilio.com/v1/Configuration' \
--u ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:your_auth_token
-```
-
-**Update Service Base URL**
-```
-curl -X POST 'https://flex-api.twilio.com/v1/Configuration' \
-    -u ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:your_auth_token
-    -H 'Content-Type: application/json' \
-    -d '{ 
-            "account_sid": "AC8c7a9b89e6917fbe077e941ec694400d",
-            "attributes": {
-                "serviceBaseUrl": "https://flex-preview-dialer-2110-dev.twil.io"
-            }
-        }'
-```
+10. Open the `.env` file in a text editor of your choice. Modify the `REACT_APP_SERVICE_BASE_URL` property to the Domain name you copied previously. Make sure to prefix it with "https://".
 
 11. Run `twilio flex:plugins:deploy --major --changelog "Updating to use the latest Flex plugin for the Twilio CLI" --description "Preview Dialer for Outbound Campaigns plugin"`
 
 To enable the plugin on your contact center, follow the suggested next step on the deployment confirmation. To enable it via the Flex UI, see the [Plugins Dashboard documentation](https://www.twilio.com/docs/flex/developer/plugins/dashboard#stage-plugin-changes).
+
+> **Note:** If you have previously deployed this plugin using v3 of the Flex Plugin Builder, make sure your agents refresh the Flex application in their browsers to ensure they are running the latest plugin version. 
 
 ## Testing the plugin
 1. Log in to the Flex instance where you deployed the plugin.
