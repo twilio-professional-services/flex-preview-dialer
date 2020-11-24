@@ -1,9 +1,8 @@
 # Flex Preview Dialer Plugin
 
-The Flex Preview Dialer Plugin includes the capability to upload a contacts list and programmatically generate a preview dialing task for each contact. Alongside the CSV upload, you can schedule outbound campaigns based on a JSON file and generate preview tasks for your agents immediately or at a specified later time and day.
+The Flex Preview Dialer Plugin includes the capability to upload a contacts list and programmatically generate a preview dialing task for each contact. Alongside the CSV upload, you can set default scheduling for outbound campaigns in a JSON file and generate preview tasks for your agents immediately or at a specified later time and day.
 
-The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/docs/runtime) and the [Actions Framework StartOutboundCall action](https://assets.flex.twilio.com/releases/flex-ui/1.18.0/docs/Actions.html#.StartOutboundCall) to send preview dialing tasks to available agents representing a call that needs to be made. When an agent accepts a preview task, the system-initiated outbound call (represented as a voice task) is automatically connected to _that_ agent. This plugin customizes the Flex UI to include the following components:
-
+The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/docs/runtime) and the [Actions Framework StartOutboundCall action](https://assets.flex.twilio.com/releases/flex-ui/1.18.0/docs/Actions.html#.StartOutboundCall) to send preview dialing tasks to available agents representing a call that needs to be made. When an agent accepts a preview task, Flex initiates an outbound call (represented as a voice task) and automatically connects it to _that_ same agent. This plugin customizes the Flex UI to include the following components:
 
 <p align="center">
     <img src="screenshots/preview-dialer-ui.png?raw=true" width="400" >
@@ -18,15 +17,16 @@ The Flex Preview Dialer plugin uses [Twilio Functions](https://www.twilio.com/do
 ## Prerequisites
 
 To deploy this plugin, you will need:
-- An active Twilio account. [Sign up](https://www.twilio.com/try-twilio) if you don't already have one
-- A Flex instance (on flex.twilio.com) running v1.18.0 or higher where you have owner, admin, or developer permissions
+- An active Twilio account with Flex provisioned and running v.1.18.0 or higher where you have owner, admin, or developer permissions. Refer to the [Flex Quickstart](https://www.twilio.com/docs/flex/quickstart/flex-basics#sign-up-for-or-sign-in-to-twilio-and-create-a-new-flex-project) to get started.
+- npm version 5.0.0 or later installed (type `npm -v` in your terminal to check)
+- Node.js version 10.12.0 or later installed (type `node -v` in your terminal to check)
 - Twilio CLI along with the Flex CLI Plugin and Serverless Plugin. Run the following in a command shell:
    ```
      # Install the Twilio CLI
      npm install twilio-cli -g
      # Install the Serverless and Flex as Plugins
      twilio plugins:install @twilio-labs/plugin-serverless
-     twilio plugins:install @twilio-labs/plugin-flex
+     twilio plugins:install @twilio-labs/plugin-flex@beta
    ```
 - [TaskRouter Queues](https://www.twilio.com/docs/flex/routing/api/task-queue) you wish to use for outbound campaigns
 - Outbound campaigns and contacts list management (the plugin includes CSV upload and scheduling components for demonstration purposes)
@@ -100,7 +100,7 @@ Afterwards, you'll find in your project a `build` folder that contains a file wi
 
 ### Twilio Serverless Deployment
 
-1. Set up all dependencies above: the TaskRouter task channel, workflow filter, and the Twilio CLI packages.
+1. Set up all dependencies above: the TaskRouter TaskChannel, Workflow filter, and the Twilio CLI packages.
 
 2. Clone this repository.
 
@@ -112,17 +112,19 @@ Afterwards, you'll find in your project a `build` folder that contains a file wi
 
 6. Copy `./serverless/.env.example` to `./serverless/.env` and populate the appropriate environment variables.
 
-7.  Change into `./serverless/` then run `twilio serverless:deploy`. Optionally, you can run locally with `twilio serverless:start --ngrok=""`
+7.  Change into `./serverless/` then run `twilio serverless:deploy`. Optionally, you can run locally with `twilio serverless:start --ngrok=""`.
 
 8. Copy and save the domain returned when you deploy a function.
 
-9. From the root directory, copy `.env.example` to `.env.production`. 
+9. From the root directory, copy `.env.example` to `.env`. 
 
-10. Open the `.env.production` file in a text editor of your choice. Modify the `REACT_APP_SERVICE_BASE_URL` property to the Domain name you copied previously. Make sure to prefix it with "https://".
+10. Open the `.env` file in a text editor of your choice. Modify the `REACT_APP_SERVICE_BASE_URL` property to the Domain name you copied previously. Make sure to prefix it with "https://".
 
-11. Run `twilio flex:plugins:deploy` to deploy the plugin.
+11. Run `twilio flex:plugins:deploy --major --changelog "Updating to use the latest Flex plugin for the Twilio CLI" --description "Preview Dialer for Outbound Campaigns plugin"`
 
-The Flex Preview Dialer Plugin is now active on your contact center!
+To enable the plugin on your contact center, follow the suggested next step on the deployment confirmation. To enable it via the Flex UI, see the [Plugins Dashboard documentation](https://www.twilio.com/docs/flex/developer/plugins/dashboard#stage-plugin-changes).
+
+> **Note:** If you have previously deployed this plugin using v3 of the Flex Plugin Builder, make sure your agents refresh the Flex application in their browsers to ensure they are running the latest plugin version. 
 
 ## Testing the plugin
 1. Log in to the Flex instance where you deployed the plugin.
