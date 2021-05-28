@@ -71,3 +71,6 @@ src/configs/campaigns.json
 
 .env.development
 .env.production
+
+# Serverless deployment info file
+serverless/.twiliodeployinfo
