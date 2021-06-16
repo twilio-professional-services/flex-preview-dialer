@@ -26,7 +26,7 @@ To deploy this plugin, you will need:
      npm install twilio-cli -g
      # Install the Serverless and Flex as Plugins
      twilio plugins:install @twilio-labs/plugin-serverless
-     twilio plugins:install @twilio-labs/plugin-flex@beta
+     twilio plugins:install @twilio-labs/plugin-flex
    ```
 - [TaskRouter Queues](https://www.twilio.com/docs/flex/routing/api/task-queue) you wish to use for outbound campaigns
 - Outbound campaigns and contacts list management (the plugin includes CSV upload and scheduling components for demonstration purposes)
