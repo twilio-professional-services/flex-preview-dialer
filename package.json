@@ -1,6 +1,6 @@
 {
   "name": "plugin-flex-preview-dialer",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "The Flex Preview Dialer Plugin includes the capability to upload a contacts list and programmatically generate a preview dialing task for each contact",
   "scripts": {

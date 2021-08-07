@@ -3,17 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "twilio-run",
     "deploy": "twilio-run deploy"
   },
   "devDependencies": {
-    "twilio-run": "^2.0.0"
+    "twilio-run": "^3.2.2"
   },
   "engines": {
     "node": "^12.21.0"
   },
   "dependencies": {
-    "twilio-flex-token-validator": "^1.5.2"
+    "twilio-flex-token-validator": "^1.5.6"
   }
 }
